@@ -1,0 +1,24 @@
+CREATE TABLE products (
+id SERIAL PRIMARY KEY;
+name VARCHAR (100);
+quantity INT
+);
+
+CREATE TABLE operations_log (
+id SERIAL PRIMARY KEY;
+product_id INT;
+operation VARCHAR (20);
+quantity INT;
+FOREIGN KEY product_id REFERENCES products(id)
+);
+
+CREATE PROCEDURE update_stock (operation VARCHAR)
+BEGIN;
+UPDATE products
+SET quantity =
+(
+CASE WHEN operation = 'ADD' THEN quantity + quantity FROM operations_log WHERE product_id = id;
+WHEN operation = 'REMOVE' THEN quantity - quantity FROM operations_log WHERE product_id = id AND quantity - quantity FROM operations_log >= 0;
+END
+)
+END; 
