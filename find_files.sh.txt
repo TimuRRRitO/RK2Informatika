@@ -1,0 +1,19 @@
+#!bin/bash
+
+if [ "$# -ne 2 ]; then
+echo "Please specify the directory and the extension"
+exit 1
+fi
+
+ROOT=$1
+EXTENSION=$2
+
+if [ -d $ROOT ]; then
+FILES=$(find "$ROOT" -type f -name "*.$EXTENSION")
+if [ -z "$FILES" ]; then
+echo "Files with such extension are not found"
+else\echo "$FILES"
+fi
+else
+echo "No such directory"
+exit 1
